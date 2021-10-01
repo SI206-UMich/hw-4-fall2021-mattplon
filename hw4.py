@@ -207,19 +207,42 @@ class TestAllMethods(unittest.TestCase):
     
 ### Write main function
 def main():
+    japanese_inventory = {"sushi": 10, "sashimi": 20, "ramen":  15}
+    mexican_inventory = {"tacos": 200, "burritos": 50,  "chips and guac": 60}
+
+    matt = Customer("Matt", 50)
+    jake = Customer("Jake", 60)
+    andrew = Customer("Andrew", 40)
+
+    ushio = Stall("Ushio", japanese_inventory, 15)
+    los_tacos = Stall("Los Tacos No 1", mexican_inventory, 5)
+
+    cashier1 = Cashier("One", [ushio, los_tacos])
+    cashier2 = Cashier("Two", [ushio, los_tacos])
+
     #Create different objects 
 
     #Try all cases in the validate_order function
     #Below you need to have *each customer instance* try the four cases
     #case 1: the cashier does not have the stall 
+    matt.validate_order(cashier1,  "Sadako", "sushi", 5)
+    jake.validate_order(cashier2,  "Belly Deli", "sandwich", 1)
+    andrew.validate_order(cashier1,  "Starbucks", "coffee", 2)
     
     #case 2: the casher has the stall, but not enough ordered food or the ordered food item
-    
-    #case 3: the customer does not have enough money to pay for the order: 
-    
-    #case 4: the customer successfully places an order
+    matt.validate_order(cashier1, ushio, "sushi", 12)
+    jake.validate_order(cashier2, los_tacos, "tacos", 201)
+    andrew.validate_order(cashier1, ushio, "ramen", 20)
 
-    pass
+    #case 3: the customer does not have enough money to pay for the order: 
+    matt.validate_order(cashier1, ushio, "sushi", 8)
+    jake.validate_order(cashier2, los_tacos, "tacos", 10)
+    andrew.validate_order(cashier1, ushio, "sashimi", 3)
+
+    #case 4: the customer successfully places an order
+    matt.validate_order(cashier1, ushio, "sushi", 2)
+    jake.validate_order(cashier2, los_tacos, "tacos", 2)
+    andrew.validate_order(cashier1, ushio, "ramen", 1)
 
 if __name__ == "__main__":
 	main()
