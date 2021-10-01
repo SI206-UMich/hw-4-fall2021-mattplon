@@ -71,8 +71,11 @@ class Cashier:
 
 ## Complete the Stall class here following the instructions in HW_4_instructions_rubric
 class Stall:
-    
-    pass
+    def __init__(self, name, inventory, cost=7, earnings=0):
+        self.name = name
+        self.inventory = inventory
+        self.cost = cost
+        self.earnings = earnings
 
 
 class TestAllMethods(unittest.TestCase):
