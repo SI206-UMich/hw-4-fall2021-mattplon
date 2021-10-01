@@ -76,6 +76,32 @@ class Stall:
         self.inventory = inventory
         self.cost = cost
         self.earnings = earnings
+	
+    def process_order(self, name, quantity):
+        if Stall.has_item(name, quantity):
+            self.inventory -= quantity
+            self.earnings += Stall.compute_cost(quantity)
+        else:
+            print("Sorry, inventory is too low")
+    
+    def has_item(self, name, quantity):
+        if name in self.inventory:
+            return self.inventory[name] >= quantity
+        else:
+            return False
+    
+    def stock_up(self, name, quantity):
+        if name in self.inventory:
+            self.inventory[name] += quantity
+        else:
+            self.inventory[name] = quantity
+    
+    def compute_cost(self, quantity):
+        return self.cost * quantity
+    
+    def __str__(self):
+        return f"Hello, we are {self.name}. This is the current menu {list(self.inventory.keys())}. We charge ${self.cost} per item. We have ${self.earnings} in total."
+
 
 
 class TestAllMethods(unittest.TestCase):
